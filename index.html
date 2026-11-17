@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HabitPulse — Rastreador de Hábitos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>HabitPulse <span>Rastreador visual de hábitos y detective de correlaciones</span></h1>
+    <div class="actions">
+      <button id="btn-demo" class="btn primary" type="button">Generar 90 Días Demo</button>
+      <button id="btn-json" class="btn" type="button">Exportar JSON</button>
+      <button id="btn-csv" class="btn" type="button">Exportar CSV</button>
+      <button id="btn-clear" class="btn danger" type="button">Borrar todo</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="metrics">
+      <div class="metric"><strong id="m-current">0</strong><span>Racha actual (días ≥ 75%)</span></div>
+      <div class="metric"><strong id="m-record">0</strong><span>Récord de racha</span></div>
+      <div class="metric"><strong id="m-rate">0%</strong><span>Tasa global de cumplimiento</span></div>
+    </section>
+
+    <section class="panel">
+      <h2>Registro diario</h2>
+      <form id="log-form">
+        <label class="row">Fecha <input type="date" id="log-date"></label>
+        <p id="log-status" class="hint"></p>
+        <fieldset id="habit-checks"></fieldset>
+        <label class="slider">Horas de sueño: <output id="sleep-out">7</output>
+          <input type="range" id="sleep" min="0" max="14" step="0.5" value="7"></label>
+        <label class="slider">Nivel de energía (1-10): <output id="energy-out">5</output>
+          <input type="range" id="energy" min="1" max="10" step="1" value="5"></label>
+        <label class="slider">Estado de ánimo (1-10): <output id="mood-out">5</output>
+          <input type="range" id="mood" min="1" max="10" step="1" value="5"></label>
+        <button class="btn primary" type="submit">Guardar registro</button>
+      </form>
+
+      <h3>Mis hábitos</h3>
+      <ul id="habit-list"></ul>
+      <form id="habit-form" class="inline">
+        <input type="text" id="habit-name" placeholder="Nuevo hábito…" maxlength="40" required>
+        <button class="btn" type="submit">Añadir</button>
+      </form>
+    </section>
+
+    <section class="panel wide">
+      <h2>Mapa de calor · últimas 26 semanas</h2>
+      <div class="hm-wrap">
+        <div class="hm-days"><span>Lun</span><span></span><span>Mié</span><span></span><span>Vie</span><span></span><span>Dom</span></div>
+        <div id="heatmap" class="heatmap"></div>
+      </div>
+      <div class="legend">Menos <i class="hm-cell l0"></i><i class="hm-cell l1"></i><i class="hm-cell l2"></i><i class="hm-cell l3"></i><i class="hm-cell l4"></i> Más</div>
+    </section>
+
+    <section class="panel wide">
+      <h2>Cumplimiento promedio por día de la semana</h2>
+      <canvas id="chart" height="220"></canvas>
+    </section>
+
+    <section class="panel wide">
+      <h2>Detective de correlaciones</h2>
+      <div id="findings" class="findings"></div>
+    </section>
+  </main>
+
+  <div id="tooltip" class="tooltip" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
